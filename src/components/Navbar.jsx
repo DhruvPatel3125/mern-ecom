@@ -14,7 +14,6 @@ const Navbar = () => {
         <li className="nav-item ">
           <a className="nav-link" href="#">Login</a>
         </li>
-       
         <li className="nav-item">
           <a className="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
         </li>

@@ -23,3 +23,22 @@ code {
 .navbar-brand{
   color: white ! important;
 }
+
+h1{
+  font-size: 18px !important;
+  text-align: left !important;
+  color: black !important;
+}
+
+.img-fluid{
+  height: 200px !important;
+}
+
+.bigimg{
+  height: 400px !important;
+}
+
+p{
+  font-size: 14px !important;
+  text-align: left !important;
+}

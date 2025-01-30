@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import bootstrap from'bootstrap/dist/css/bootstrap.min.css';
+import bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar';
 import Homrscreen from './screens/Homrscreen';
 import ProductDescription from './screens/ProductDescription';

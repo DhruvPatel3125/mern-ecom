@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import products from "../Products";
 
+const products = [];
 export default function ProductDescription() {
   const { id } = useParams(); // Get the product ID from the URL
   const product = products.find((product) => product.id === parseInt(id)); // Convert id to number

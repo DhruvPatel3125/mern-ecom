@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
-const products = [];
 export default function ProductDescription() {
   const { id } = useParams(); // Get the product ID from the URL
-  const product = products.find((product) => product.id === parseInt(id)); // Convert id to number
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`/api/products/${id}`)
+      .then((res) => {
+        setProduct(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching product:", error);
+      });
+  }, [id]);
+
+  if (!product) {
+    return <h1>Product not found</h1>;
+  }
 
   return (
     <div>
@@ -15,7 +30,7 @@ export default function ProductDescription() {
             <img
               src={product.image}
               className="img-fluid m-3 bigimg"
-              alt="images"
+              alt={product.name}
             />
             <p>{product.description}</p>
           </div>
@@ -26,15 +41,17 @@ export default function ProductDescription() {
             <hr />
             <h1>Select Quantity</h1>
             <select>
-              {[...Array(product.countInStock).keys()].map((x, i) => {
-                return <option value={i + 1}>{i + 1}</option>;
-              })}
+              {[...Array(product.countInStock).keys()].map((x, i) => (
+                <option key={i} value={i + 1}>
+                  {i + 1}
+                </option>
+              ))}
             </select>
             <hr />
             <button className="btn btn-dark">Add to cart</button>
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   );
 }

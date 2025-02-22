@@ -1,17 +1,17 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
-import { thunk } from "redux-thunk";  // Corrected import
-import { composeWithDevTools } from "redux-devtools-extension";
+import {thunk} from "redux-thunk"; // Correct import
+import { Provider } from "react-redux"; // Ensure this is used in App.js
 import { getAllProductsReducer } from "./reducers/productReducer";
 
 // Combine reducers
 const rootReducer = combineReducers({
-  products: getAllProductsReducer, 
+  allProducts: getAllProductsReducer, // Ensure consistency in key name
 });
 
 // Create store with middleware
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk)) // Apply thunk middleware
+  applyMiddleware(thunk) // Apply thunk middleware without devtools
 );
 
 export default store;

@@ -4,30 +4,35 @@ import { getAllProducts } from "../actions/productAction";
 import Product from "../components/Product";
 
 export default function Homescreen() {
-  const getAllProductsstate = useSelector((state) => state.products) || {};
-  const { loading = false, products = [], error = null } = getAllProductsstate;
-  
   const dispatch = useDispatch();
+  const { loading, products, error } = useSelector((state) => state.allProducts);
+
+  // Add console.log to debug Redux state
+  console.log("Redux state:", { loading, products, error });
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
 
   return (
-    <div>
-      <div className="row justify-content-center">
-        {loading ? (
-          <h1>Loading...</h1>
-        ) : error ? (
-          <h1>Something went wrong</h1>
-        ) : (
-          products.map((product) => (
-            <div className="col-md-3 m-2" key={product._id}>
+    <div className="container mt-4">
+      {loading ? (
+        <div className="loading-spinner">
+          <h2>Loading...</h2>
+        </div>
+      ) : error ? (
+        <div className="error-message">
+          <h2>Error: {error}</h2>
+        </div>
+      ) : (
+        <div className="row">
+          {products?.map((product) => (
+            <div className="col-md-3 mb-4" key={product._id}>
               <Product product={product} />
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

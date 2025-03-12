@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
-import {thunk} from "redux-thunk"; // Correct import
-import { Provider } from "react-redux"; // Ensure this is used in App.js
-import { getAllProductsReducer } from "./reducers/productReducer";
+import { thunk } from "redux-thunk";
+import { getAllProductsReducer, getProductByIdReducer } from "./reducers/productReducer";
 
 // Combine reducers
 const rootReducer = combineReducers({
-  allProducts: getAllProductsReducer, // Ensure consistency in key name
+  allProducts: getAllProductsReducer,
+  getProductByIdReducer: getProductByIdReducer
 });
 
 // Create store with middleware

@@ -4,22 +4,27 @@ import Rating from "react-rating";
 import "font-awesome/css/font-awesome.min.css";
 
 export default function Product({ product }) {
+  console.log("Product data:", product);
+  
   return (
-    <div className="text-start">
-      <div>
-        <Link to={`/product/${product.id}`} style={{ textDecoration: "none" }}>
-          <img src={product.image} className="img-fluid" alt="images" />
-          <h1>{product.name}</h1>
+    <div className="product-card">
+      <Link to={`/product/${product._id}`} style={{ textDecoration: "none" }}>
+        <img 
+          src={product.image} 
+          className="product-image" 
+          alt={product.name} 
+        />
+        <h1 className="product-title">{product.name}</h1>
+        <div className="rating-stars">
           <Rating
-            style={{ color: "orange" }}
             initialRating={product.rating}
             emptySymbol="fa fa-star-o fa-1x"
             fullSymbol="fa fa-star fa-1x"
             readonly={true}
           />
-          <h1>Price : {product.price}</h1>
-        </Link>
-      </div>
+        </div>
+        <h1 className="product-price">Price: ${product.price}</h1>
+      </Link>
     </div>
   );
 }

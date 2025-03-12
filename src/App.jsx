@@ -1,20 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Homrscreen from './screens/Homrscreen';
+import Homescreen from './screens/Homrscreen';
 import ProductDescription from './screens/ProductDescription';
 
 function App() {
   return (
-   
     <div className="App">
-      <Navbar />
       <BrowserRouter>
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Homrscreen />} />
-          <Route path="/product/:id" element={<ProductDescription/>} />
+          <Route path="/" element={<Homescreen />} />
+          <Route path="/product/:id" element={<ProductDescription />} />
         </Routes>
       </BrowserRouter>
     </div>

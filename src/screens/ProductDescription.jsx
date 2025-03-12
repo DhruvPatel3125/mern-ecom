@@ -4,61 +4,58 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductById } from "../actions/productAction";
 
 export default function ProductDescription() {
-  const { id } = useParams(); // Get product ID from URL
+  const { id } = useParams();
   const dispatch = useDispatch();
-
-  const productState = useSelector((state) => state.getProductByIdReducer);
-  const { loading, product, error } = productState;
-
+  const { loading, product, error } = useSelector(
+    (state) => state.getProductByIdReducer
+  );
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     dispatch(getProductById(id));
   }, [dispatch, id]);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
-  if (error) {
-    return <h1>{error}</h1>;
-  }
-
-  if (!product) {
-    return <h1>Product not found</h1>;
-  }
+  if (loading) return <div className="loading-spinner">Loading...</div>;
+  if (error) return <div className="error-message">Error: {error}</div>;
+  if (!product) return <div className="error-message">Product not found</div>;
 
   return (
-    <div>
+    <div className="container mt-5">
       <div className="row">
         <div className="col-md-6">
-          <div className="card p-2 m-2">
-            <h1>{product.name || "Unknown Product"}</h1>
+          <div className="card shadow-sm">
             <img
-              src={product.image || "placeholder.jpg"}
-              className="img-fluid m-3 bigimg"
-              alt={product.name || "Product"}
+              src={product.image}
+              className="product-detail-image"
+              alt={product.name}
             />
-            <p>{product.description || "No description available."}</p>
+            <div className="card-body">
+              <h1 className="product-title">{product.name}</h1>
+              <p className="product-description">{product.description}</p>
+            </div>
           </div>
         </div>
-        <div className="col-md-6 text-start">
-          <div className="m-2">
-            <h1>Price: ${product.price ?? "N/A"}</h1>
-            <hr />
-            <h1>Select Quantity</h1>
-            <select
-              value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))}
+        <div className="col-md-6">
+          <div className="card shadow-sm p-4">
+            <h2 className="product-price mb-4">Price: ${product.price}</h2>
+            <div className="mb-3">
+              <h3 className="mb-2">Select Quantity</h3>
+              <select
+                className="quantity-selector"
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+              >
+                {[...Array(product.countInStock).keys()].map((x) => (
+                  <option key={x + 1} value={x + 1}>
+                    {x + 1}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button 
+              className="btn btn-dark add-to-cart-btn"
+              disabled={!product.countInStock}
             >
-              {[...Array(Math.max(1, product?.countInStock || 0)).keys()].map((x) => (
-                <option key={x + 1} value={x + 1}>
-                  {x + 1}
-                </option>
-              ))}
-            </select>
-            <hr />
-            <button className="btn btn-dark" disabled={product.countInStock === 0}>
               {product.countInStock === 0 ? "Out of Stock" : "Add to Cart"}
             </button>
           </div>

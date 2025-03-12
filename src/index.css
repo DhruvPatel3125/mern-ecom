@@ -1,3 +1,4 @@
+/* Base styles */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f9fa;
 }
 
 code {
@@ -12,16 +14,28 @@ code {
     monospace;
 }
 
+/* Navbar styling */
 .navbar {
-  background-color: rgb(1, 1, 51) ! important;
+  background-color: rgb(1, 1, 51) !important;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.nav-link{
-  color: white ! important;
+.nav-link {
+  color: white !important;
+  font-size: 1.1rem;
+  margin: 0 1rem;
+  transition: opacity 0.3s;
 }
 
-.navbar-brand{
-  color: white ! important;
+.nav-link:hover {
+  opacity: 0.8;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 h1{
@@ -30,15 +44,75 @@ h1{
   color: black !important;
 }
 
-.img-fluid{
+/* Product card styling */
+.product-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-image {
   height: 200px !important;
+  object-fit: contain;
+  width: 100%;
 }
 
-.bigimg{
+.product-title {
+  font-size: 1.2rem !important;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: #333 !important;
+}
+
+.product-price {
+  font-size: 1.1rem !important;
+  color: #2c3e50 !important;
+  font-weight: 500;
+}
+
+/* Rating stars */
+.rating-stars {
+  color: orange !important;
+  margin: 0.5rem 0;
+}
+
+/* Product description page */
+.product-detail-image {
   height: 400px !important;
+  object-fit: contain;
+  width: 100%;
 }
 
-p{
-  font-size: 14px !important;
-  text-align: left !important;
+.quantity-selector {
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+  width: 100px;
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* Loading and error states */
+.loading-spinner {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.error-message {
+  color: #dc3545;
+  text-align: center;
+  padding: 2rem;
 }

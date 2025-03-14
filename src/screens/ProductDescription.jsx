@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductById } from "../actions/productAction";
+import { getProductById, addtocart } from "../actions/productAction";
 
 export default function ProductDescription() {
   const { id } = useParams();
@@ -18,6 +18,10 @@ export default function ProductDescription() {
   if (loading) return <div className="loading-spinner">Loading...</div>;
   if (error) return <div className="error-message">Error: {error}</div>;
   if (!product) return <div className="error-message">Product not found</div>;
+
+  const handleAddToCart = () => {
+    dispatch(addtocart(product, quantity));
+  };
 
   return (
     <div className="container mt-5">
@@ -54,6 +58,7 @@ export default function ProductDescription() {
             </div>
             <button 
               className="btn btn-dark add-to-cart-btn"
+              onClick={handleAddToCart}
               disabled={!product.countInStock}
             >
               {product.countInStock === 0 ? "Out of Stock" : "Add to Cart"}

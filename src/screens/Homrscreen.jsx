@@ -5,10 +5,12 @@ import Product from "../components/Product";
 
 export default function Homescreen() {
   const dispatch = useDispatch();
-  const { loading, products, error } = useSelector((state) => state.allProducts);
-
+  
   // Add console.log to debug Redux state
-  console.log("Redux state:", { loading, products, error });
+  const productState = useSelector((state) => state.allProducts);
+  const { loading, products, error } = productState;
+  
+  console.log("Redux State:", { productState, loading, products, error });
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -26,11 +28,15 @@ export default function Homescreen() {
         </div>
       ) : (
         <div className="row">
-          {products?.map((product) => (
-            <div className="col-md-3 mb-4" key={product._id}>
-              <Product product={product} />
-            </div>
-          ))}
+          {products && products.length > 0 ? (
+            products.map((product) => (
+              <div className="col-md-3 mb-4" key={product._id}>
+                <Product product={product} />
+              </div>
+            ))
+          ) : (
+            <div>No products found</div>
+          )}
         </div>
       )}
     </div>

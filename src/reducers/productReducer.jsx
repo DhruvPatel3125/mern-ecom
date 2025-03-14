@@ -1,24 +1,36 @@
-export const getAllProductsReducer = (state = { products: [] }, action) => {
-    switch (action.type) {
-      case "GET_PRODUCTS_REQUEST":
-        return { loading: true, products: [] };
-      case "GET_PRODUCTS_SUCCESS":
-        return { loading: false, products: action.payload };
-      case "GET_PRODUCTS_FAILED":
-        return { loading: false, error: action.payload };
-      default:
-        return state;
-    }
-  };
-  
-export const getProductByIdReducer = (state = { product: null }, action) => {
+const initialProductState = {
+  products: [],
+  loading: false,
+  error: null
+};
+
+export const getAllProductsReducer = (state = initialProductState, action) => {
+  switch (action.type) {
+    case "GET_PRODUCTS_REQUEST":
+      return { ...state, loading: true, error: null };
+    case "GET_PRODUCTS_SUCCESS":
+      return { ...state, loading: false, products: action.payload };
+    case "GET_PRODUCTS_FAILED":
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+const initialSingleProductState = {
+  product: null,
+  loading: false,
+  error: null
+};
+
+export const getProductByIdReducer = (state = initialSingleProductState, action) => {
   switch (action.type) {
     case "GET_PRODUCT_REQUEST":
-      return { loading: true };
+      return { ...state, loading: true, error: null };
     case "GET_PRODUCT_SUCCESS":
-      return { loading: false, product: action.payload };
+      return { ...state, loading: false, product: action.payload };
     case "GET_PRODUCT_FAILED":
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }

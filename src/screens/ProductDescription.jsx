@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductById, addtocart } from "../actions/productAction";
+import { getProductById } from "../actions/productAction";
+import { addtocart } from "../actions/cartAction";
 
 export default function ProductDescription() {
   const { id } = useParams();
@@ -20,6 +21,7 @@ export default function ProductDescription() {
   if (!product) return <div className="error-message">Product not found</div>;
 
   const handleAddToCart = () => {
+    console.log("Adding to cart:", product, quantity);
     dispatch(addtocart(product, quantity));
   };
 

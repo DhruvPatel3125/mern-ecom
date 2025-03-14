@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 
 const Navbar = () => {
   // const dispatch = useDispatch();
-    const cartReducer = useSelector((state)=>state.cartReducer);
-  const {cartItems} = cartReducer;
+    const cartReducerState = useSelector((state) => state.cartReducer);
+  const cartItems = cartReducerState?.cartItems || [];
   return (
     <div>
     <nav className="navbar navbar-expand-lg ">

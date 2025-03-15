@@ -7,10 +7,12 @@ export default function Cartscreen() {
     const cartreducerstate = useSelector((state) => state.cartReducer)
     const {cartItems} = cartreducerstate
     const dispatch = useDispatch()
+
+    var subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0) 
   return (
     <div>
         <div className="row mt-5 justify-content-center">
-            <div className="col-md-8">
+            <div className="col-md-8 card p-3">
                 <h1 className='text-center mb-5'>Shopping Cart</h1>
                 <table className='table table-bordered'>
                     <thead>
@@ -47,6 +49,10 @@ export default function Cartscreen() {
                         ))}
                     </tbody>
                 </table>
+                <hr />
+                <h2 className='text-center'>Subtotal: {subtotal} RS/-</h2>
+                <hr />
+                <button className='btn'>PAY NOW</button>
             </div>
         </div>
     </div>

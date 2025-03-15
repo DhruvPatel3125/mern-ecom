@@ -116,3 +116,26 @@ h1{
   text-align: center;
   padding: 2rem;
 }
+h2{
+  font-size: 25px !important;
+  font-weight: 600 !important;
+     
+}
+.btn{
+  background-color: rgb(1, 1, 51) !important;
+  color: white !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  padding: 10px 20px !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+  width: 200px !important;
+  display: block !important;
+  margin: 0 auto !important;
+  margin-top: 10px !important;
+  text-align: center !important;
+}
+
+
+  

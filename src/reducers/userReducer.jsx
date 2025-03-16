@@ -74,6 +74,10 @@ export const loginUserReducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload
             };
+
+        case 'USER_LOGOUT': return{
+            ...state
+        }
         default:
             return state;
     }

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../actions/userAction";
+import Error from "../components/Error";
+import Loader from "../components/Loader";
 
 export default function Loginscreen() {
   const [email, setEmail] = useState("");
@@ -18,22 +20,26 @@ export default function Loginscreen() {
     };
     dispatch(loginUser(user));
   };
-
+  
   useEffect(() => {
     if (localStorage.getItem("currentUser")) {
       window.location.href = "/";
     }
-  }
-  , []);
-
-
+  }, []);
+  
   return (
-    <div className="container mt-5">
+    <div className="container auth-container">
+      {loading && (
+        <div className="d-flex justify-content-center align-items-center">
+          <Loader />
+        </div>
+      )}
       <div className="row justify-content-center">
-        <div className="col-md-5 card p-3" style={{ marginTop: "150px" }}>
+        <div className="col-md-4 card auth-card">
           <div className="div">
-            <h2 className="text-center mb-5">Login</h2>
-            <form onSubmit={login}>
+            <h2 className="auth-title">Login</h2>
+            {error && (<Error error={error} />)}
+            <form className="auth-form" onSubmit={login}>
               <input
                 type="email"
                 className="form-control"
@@ -54,17 +60,17 @@ export default function Loginscreen() {
               />
               <div className="text-right">
                 <button
-                  className="btn btn-primary"
+                  className="btn"
                   type="submit"
                   disabled={loading}
                 >
                   Login
                 </button>
               </div>
-              {error && <div className="error-message">{error}</div>}
               {success && <div className="success-message">Login successful!</div>}
             </form>
           </div>
+          <a href="/register" className="auth-link">Click Here To Register</a>
         </div>
       </div>
     </div>

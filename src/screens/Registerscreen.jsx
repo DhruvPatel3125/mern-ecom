@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerNewUser } from "../actions/userAction";
+import Error from "../components/Error";
+import Loader from "../components/Loader";
+import Success from "../components/Success";
 
 export default function Registerscreen() {
   const [name, setName] = useState("");
@@ -9,7 +12,7 @@ export default function Registerscreen() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const dispatch = useDispatch();
-  const registerState = useSelector(state => state.registerNewUserReducer);
+  const registerState = useSelector((state) => state.registerNewUserReducer);
   const { loading, error, success } = registerState;
 
   const handleRegister = (e) => {
@@ -21,18 +24,29 @@ export default function Registerscreen() {
     const user = {
       name,
       email,
-      password
+      password,
     };
     dispatch(registerNewUser(user));
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container auth-container">
+      {loading && (
+        <div className="d-flex justify-content-center align-items-center">
+          <Loader />
+        </div>
+      )}
       <div className="row justify-content-center">
-        <div className="col-md-5 card p-3" style={{ marginTop: "150px" }}>
+        <div className="col-md-5 card auth-card">
           <div className="div">
-            <h2 className="text-center mb-5">Register</h2>
-            <form onSubmit={handleRegister}>
+            <h2 className="auth-title">Register</h2>
+            {error && <Error error="You already have an account please login" />}
+            {success && (
+              <div className="alert alert-success" role="alert">
+                Registration successful!
+              </div>
+            )}
+            <form className="auth-form" onSubmit={handleRegister}>
               <input
                 type="text"
                 className="form-control"
@@ -71,20 +85,18 @@ export default function Registerscreen() {
               />
               <div className="text-right">
                 <button
-                  className="btn btn-primary"
+                  className="btn"
                   type="submit"
                   disabled={loading}
                 >
                   Register
                 </button>
               </div>
-              {error && <div className="error-message">{error}</div>}
-              {success && <div className="success-message">Registration successful!</div>}
             </form>
+            <a href="/login" className="auth-link">Click Here To Login</a>
           </div>
         </div>
       </div>
     </div>
   );
 }
-

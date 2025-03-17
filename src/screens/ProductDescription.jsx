@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductById } from "../actions/productAction";
 import { addtocart } from "../actions/cartAction";
+import Loading from "../components/Loader";
+import Error from "../components/Error";
 
 export default function ProductDescription() {
   const { id } = useParams();
@@ -16,8 +18,8 @@ export default function ProductDescription() {
     dispatch(getProductById(id));
   }, [dispatch, id]);
 
-  if (loading) return <div className="loading-spinner">Loading...</div>;
-  if (error) return <div className="error-message">Error: {error}</div>;
+  if (loading) return <div className="loading-spinner"><Loading /></div>;
+  if (error) return <div className="error-message"><Error error="Something went wrong"/></div>;
   if (!product) return <div className="error-message">Product not found</div>;
 
   const handleAddToCart = () => {

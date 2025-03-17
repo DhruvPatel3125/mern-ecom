@@ -11,9 +11,9 @@ export default function Product({ product }) {
       <Link to={`/product/${product._id}`} style={{ textDecoration: "none" }}>
         <img 
           src={product.image} 
-          className="product-image" 
+          className="product-image text-center" 
           alt={product.name} 
-        />
+        ></img>
         <h1 className="product-title">{product.name}</h1>
         <div className="rating-stars">
           <Rating

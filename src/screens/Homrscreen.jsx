@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../actions/productAction";
 import Product from "../components/Product";
+import Loader from "../components/Loader";
+import Error from "../components/Error";
 
 export default function Homescreen() {
   const dispatch = useDispatch();
@@ -20,11 +22,11 @@ export default function Homescreen() {
     <div className="container mt-4">
       {loading ? (
         <div className="loading-spinner">
-          <h2>Loading...</h2>
+          <Loader />
         </div>
       ) : error ? (
         <div className="error-message">
-          <h2>Error: {error}</h2>
+          <Error error = "Something went Wrong..."/>
         </div>
       ) : (
         <div className="row">

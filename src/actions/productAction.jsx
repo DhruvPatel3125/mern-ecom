@@ -49,3 +49,32 @@ export const addtocart = (product, quantity) => (dispatch, getState) => {
 
   localStorage.setItem("cartItems", JSON.stringify(getState().addtoCartReducer.cartItems));
 };
+
+export const filterProducts = (searchkey, shortKey, category) => (dispatch) => {
+  dispatch({ type: 'GET_PRODUCTS_REQUEST' });
+  axios.get('/api/products/getallproducts').then((res) => {
+    let filteredproducts = res.data;
+
+    if (searchkey) {
+      filteredproducts = filteredproducts.filter((product) =>
+        product.name.toLowerCase().includes(searchkey)
+      );
+    }
+    if (shortKey !== 'popular') {
+      if (shortKey === 'htl') {
+        filteredproducts = filteredproducts.sort((a, b) => b.price - a.price);
+      } else {
+        filteredproducts = filteredproducts.sort((a, b) => a.price - b.price);
+      }
+    }
+    if (category !== 'all') {
+      filteredproducts = filteredproducts.filter((product) =>
+        product.category.toLowerCase().includes(category)
+      );
+    }
+    dispatch({ type: 'GET_PRODUCTS_SUCCESS', payload: filteredproducts });
+  }).catch((err) => {
+    dispatch({ type: 'GET_PRODUCTS_FAILED' });
+  });
+};
+//8-17
